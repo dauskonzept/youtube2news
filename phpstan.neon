@@ -1,0 +1,7 @@
+parameters:
+  level: 8
+  paths:
+    - Classes
+  excludePaths:
+    - Classes/Service/SlugService.php
+  checkGenericClassInNonGenericObjectType: false

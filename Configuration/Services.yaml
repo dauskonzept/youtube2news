@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  DSKZPT\YouTube2News\:
+    resource: '../Classes/*'
+
+  DSKZPT\YouTube2News\Command\ImportVideosCommand:
+    tags:
+      - name: 'console.command'
+        command: 'youtube2news:import-videos'
+        description: 'Imports videos form a given youtube channel as news entities'
