@@ -7,19 +7,19 @@
 [![License](http://poser.pugx.org/dskzpt/youtube2news/license)](https://packagist.org/packages/dskzpt/youtube2news)
 [![PHP Version Require](http://poser.pugx.org/dskzpt/youtube2news/require/php)](https://packagist.org/packages/dskzpt/youtube2news)
 
-TYPO3 Extension "twitter2news"
+TYPO3 Extension "youtube2news"
 =================================
 
 ## What does it do?
 
-Imports tweets via the official Twitter API
+Imports YouTube videos via the official YouTube API
 as [EXT:news](https://github.com/georgringer/news)
 "News" entities.
 
 **Summary of features**
 
 * Integrates with [EXT:news](https://github.com/georgringer/news) to import
-  tweets as News entities
+  YouTube videos as News entities
 * Provides command to regularly import new/update already imported videos
 * Adds a new subtype for EXT:news: "YouTube Video"
 
@@ -35,7 +35,7 @@ root, just run:
 1. Get your YouTube API access token by following
    the [official documentation](https://developers.google.com/youtube/v3/getting-started)
 2. Enter your API access token in the Extension configuration/settings.
-3. Run the provided command to import tweets: <pre>youtube2news:import-videos {username} {storagePid} [limit|25]</pre>
+3. Run the provided command to import videos: <pre>youtube2news:import-videos {channelname} {storagePid} [limit|25]</pre>
 
 __Recommended__:
 
