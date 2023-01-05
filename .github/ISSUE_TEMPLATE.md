@@ -1,5 +1,5 @@
 ### Extension version
-Tell me which version of EXT:twitter2news you use
+Tell me which version of EXT:youtube2news you use
 
 ### Short problem description
 
