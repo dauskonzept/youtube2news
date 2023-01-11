@@ -23,6 +23,10 @@ class VideoDTOFactory
         $return = [];
 
         foreach ($videosData as $videoSnippet) {
+            if (isset($videoSnippet['id']['videoId']) === false) {
+                continue;
+            }
+
             $return[] = $this->createFromSnippetData($videoSnippet);
         }
 
@@ -37,7 +41,8 @@ class VideoDTOFactory
     public function createFromSnippetData(array $data): VideoDTO
     {
         $snippet = $data['snippet'];
-        $videoId = $data['id']['videoId'];
+        $videoId = $data['id']['videoId'] ?? null;
+
         $publishedAt = new \DateTimeImmutable($snippet['publishedAt']);
 
         return $this->create($videoId, $publishedAt)

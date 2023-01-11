@@ -19,11 +19,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class YouTubeApiClient
 {
+    private const API_BASE_URL = 'https://www.googleapis.com/youtube/v3';
+
     private string $apiKey;
 
     private RequestFactory $requestFactory;
-
-    private const API_BASE_URL = 'https://www.googleapis.com/youtube/v3';
 
     private VideoDTOFactory $videoDTOFactory;
 
@@ -56,10 +56,14 @@ class YouTubeApiClient
         );
 
         $response = $this->request($endpoint);
-
         $videos = $response['items'];
 
-        // todo: get paginated videos if nessessary
+        // Get paginated videos if necessary
+        $nextPageToken = $response['nextPageToken'] ?? null;
+
+        if (count($videos) < $limit && $nextPageToken) {
+            $videos = $this->getPaginatedVideos($videos, $limit, $endpoint, $nextPageToken);
+        }
 
         return $this->videoDTOFactory->createFromApiResponse($videos);
     }
@@ -84,6 +88,33 @@ class YouTubeApiClient
         );
 
         return $this->request($endpoint);
+    }
+
+    /**
+     * @param mixed[] $videos
+     *
+     * @return mixed[]
+     *
+     * @throws \Exception
+     */
+    private function getPaginatedVideos(array $videos, int $limit, string $endpoint, string $nextPageToken = null): array
+    {
+        while (count($videos) < $limit && $nextPageToken) {
+            $nextPageUrl = sprintf('%s&pageToken=%s', $endpoint, $nextPageToken);
+
+            $response = $this->request($nextPageUrl);
+            $nextPageToken = $response['nextPageToken'] ?? null;
+
+            foreach ($response['items'] as $video) {
+                $videos[] = $video;
+
+                if (count($videos) === $limit) {
+                    break 2;
+                }
+            }
+        }
+
+        return $videos;
     }
 
     /**
