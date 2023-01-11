@@ -41,7 +41,7 @@ class VideoDTOFactory
     public function createFromSnippetData(array $data): VideoDTO
     {
         $snippet = $data['snippet'];
-        $videoId = $data['id']['videoId'] ?? null;
+        $videoId = $data['id']['videoId'];
 
         $publishedAt = new \DateTimeImmutable($snippet['publishedAt']);
 
